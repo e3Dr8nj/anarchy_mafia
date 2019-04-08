@@ -56,8 +56,9 @@ client.on("raw", (...args) => {try{
    raw.run(client,...args);
 }catch(err){console.log(err);}; });//ready end
 
-client.sub1=new Discord.Client();
-
+//client.sub1=new Discord.Client();
+//client.sub2=new Discord.Client();
 client.login(process.env.TOKEN);
-client.sub1.login(process.env.TOKEN_SUB1);
+if(client.sub1) client.sub1.login(process.env.TOKEN_SUB1);
+if(client.sub2) client.sub2.login(process.env.TOKEN_SUB2);
 //

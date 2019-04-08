@@ -24,7 +24,7 @@ module.exports.events.message={ on:true,  run:async(client,message)=>{try{
                           let args=message.content.split(' ');
                           if(args[0].length>1){nickname=args[0].slice(1);};
                            args.shift();
-                          v_chnl.send('`'+nickname+':` '+args.join(' '));
+                         // v_chnl.send('`'+nickname+':` '+args.join(' '));
                           return;
                   };//redirect to chat
                        let leader_role = server.roles.find(r=>r.name==module.exports.e.mafia_game_leader_role_name);
@@ -58,7 +58,7 @@ module.exports.commands.mafHelp={ on:true, aliase:'mafDmRedirectHelp', run:async
 }catch(err){console.log(err);};}};//
 //____________c1
 module.exports.commands.mafSetLeader={ on:true, aliase:'mafSetLeader', run:async(client,message,args)=>{try{
-              let server = client.guilds.get(client.SERVER_ID);
+              let server = client.guilds.get(client.SERVER_ID); 
               let mmb=message.mentions.members.first();
               //let v_chnl = await server.channels.find(ch=>ch.name==module.exports.e.voite_channel_name);
               if(!mmb){await message.channel.send('mmb not defined');return;};

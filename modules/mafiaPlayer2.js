@@ -24,15 +24,22 @@ module.exports.boots.someBoot={run:async(client)=>{try{
     //code to execut bot on loading
     if(!client.sub1) return;
     client.sub1.on("message",async (message) => {try{
+    if(message.author.bot) return;
+if(client.sub2&&client.sub2.user.id==message.author.id) return;
+      
+     let dm = message.channel.type=='dm';
+      //if(!dm&&message.channel.name!='текстовая мафия') return;
+      if(!dm&&message.guild.id!=client.SERVER_ID) return;
        if(message.author.id==client.sub1.user.id) return;
-       let author_mmb=await client.guilds.get(client.SERVER_ID).fetchMember(message.author.id).then(mmb=>{return mmb}).catch(err=>{return false;});
-       let isLeader=author_mmb.roles.some(r=>r.name==module.exports.e.game_leader_role_name);
        
-      // if(!isLeader) return;
-       let dm = message.channel.type=='dm';
+       let author_mmb=await client.guilds.get(client.SERVER_ID).fetchMember(message.author.id).then(mmb=>{return mmb}).catch(err=>{return false;});
+       let isLeader=author_mmb.roles.find(r=>r.name==module.exports.e.game_leader_role_name);
+       if(dm&&!isLeader) return;
+      
+       
        if(!dm&&message.mentions.members.length==0) return;
        if(!dm&&!message.mentions.members.get(client.sub1.user.id)) return;
-       if((/лалка/).test(message.content)) {message.reply('сам лалка');};
+       if((/лалка/).test(message.content)) {message.channel.send('сам лалка');};
       if((/тест/).test(message.content)) {
         /*
           let result=await message.channel.search({
@@ -50,6 +57,7 @@ console.log(result);
            let str=(rnd==1)?'да':(rnd==0)?'нет':'не знаю';
             message.reply(str);
           };
+       if(!isLeader) return ;
        let s_args=await module.exports.extractArgs(message);
        if(message.content.indexOf('поставь реакцию')!=-1){return module.exports.addReaction(client,message,s_args);};//
        if((/выбери цель/).test(message.content)){return module.exports.chooseAim(client,message,s_args);};//
@@ -61,6 +69,52 @@ console.log(result);
 }catch(err){console.log(err);};}};//
 
 //...
+module.exports.boots.someBoot2={run:async(client)=>{try{
+    //code to execut bot on loading
+    if(!client.sub2) return;
+    client.sub2.on("message",async (message) => {try{
+      if(message.author.bot) return;
+if(client.sub1&&client.sub1.user.id==message.author.id) return;
+      let dm = message.channel.type=='dm';
+      //if(!dm&&message.channel.name!='текстовая мафия') return;
+      if(!dm&&message.guild.id!=client.SERVER_ID) return;
+       if(message.author.id==client.sub2.user.id) return;
+       let author_mmb=await client.guilds.get(client.SERVER_ID).fetchMember(message.author.id).then(mmb=>{return mmb}).catch(err=>{return false;});
+       let isLeader=author_mmb.roles.find(r=>r.name==module.exports.e.game_leader_role_name);
+       if(dm&&!isLeader) return;
+      
+       
+       if(!dm&&message.mentions.members.length==0) return;
+       if(!dm&&!message.mentions.members.get(client.sub2.user.id)) return;
+       if((/лалка/).test(message.content)) {message.channel.send('сам лалка');};
+      if((/тест/).test(message.content)) {
+        /*
+          let result=await message.channel.search({
+             content: 'да'
+           }).then(res => {
+  const hit = res.messages[0].find(m => m.hit).content;
+  console.log(`I found: **${hit}**, total results: ${res.totalResults}`);
+}).catch(console.error);
+console.log(result);
+*/
+};
+
+       if(message.content.indexOf('?')!=-1) {
+           let rnd= random(3);
+           let str=(rnd==1)?'да':(rnd==0)?'нет':'не знаю';
+            message.reply(str);
+          };
+       if(!isLeader) return ;
+       let s_args=await module.exports.extractArgs(message);
+       if(message.content.indexOf('поставь реакцию')!=-1){return module.exports.addReaction(client,message,s_args);};//
+       if((/выбери цель/).test(message.content)){return module.exports.chooseAim(client,message,s_args);};//
+       if((/выбери/).test(message.content)){return module.exports.chooseOne(message,s_args);};//
+       if((/голосуй/).test(message.content)){return module.exports.chooseAimVoite(client,message,s_args);};// 
+
+       }catch(err){console.log(err);}; });//
+
+}catch(err){console.log(err);};}};//
+
 //_________________________________________COMMANDS_PART_________________________________________________
 module.exports.commands = {};
 module.exports.commands.mafHelp={ on:true, aliase:'mafPlayerHelp', run:async(client,message,args)=>{try{

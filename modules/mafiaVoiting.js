@@ -125,8 +125,8 @@ module.exports.commands.mafHelp={ on:true, aliase:'mafVoitingHelp', run:async(cl
               str+='['+px+'mafCreateMsg <текст сообщения>___] - создать сообщение от имени бота с заданым текстом(___-конец ввода)\n';
               str+='['+px+'mafGiveRoleMsg <id сообщения>] - дать роль доступа к игре всем упоминающимся в сообщении \n';
               str+='['+px+'mafRemoveRole] - забрать роль доступа у всех\n';
-              str+='['+px+'mafGiveRoleMmb @mention] - дать роль доступа к игре участнику\n';
-              str+='['+px+'mafRemoveRoleMmb @mention] - снять роль доступа к игре у участника\n';
+              str+='['+px+'mafAddMmb @mention] - дать роль доступа к игре участнику\n';
+              str+='['+px+'mafRemoveMmb @mention] - снять роль доступа к игре у участника\n';
               str+='['+px+'mafScanVoiting] - опубликовать текущую сводку голосования\n';
               str+='[!голосование началось] - открыть голосование\n';
               str+='[!голосование окончено] - закрыть голосование\n';
@@ -265,11 +265,11 @@ module.exports.commands.scan={ on:true, aliase:'mafScanVoiting', run:async(clien
 }catch(err){console.log(err);};}};//mdoule.exports.commans.scan end
 
 //____________c1
-module.exports.commands.mafGiveRole={ on:true, aliase:'mafGiveRoleMmb', run:async(client,message,args)=>{try{
+module.exports.commands.mafGiveRole={ on:true, aliase:'mafAddMmb', run:async(client,message,args)=>{try{
                return module.exports.addMember(client,message);
 }catch(err){console.log(err);};}};//
 //____________c2
-module.exports.commands.mafRemoveRole={ on:true, aliase:'mafRemoveRoleMmb', run:async(client,message,args)=>{try{
+module.exports.commands.mafRemoveRole2={ on:true, aliase:'mafRemoveMmb', run:async(client,message,args)=>{try{
                return module.exports.removeMember(client,message);
 }catch(err){console.log(err);};}};//
 //_______________________________________COMMANDS_PART_END___________________________________________________
